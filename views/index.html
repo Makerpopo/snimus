@@ -3,6 +3,10 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-    <p>Welcome to wo ho ho {{ title }}</p>
+    {% for article in articles %}
+        <article>
+            <h2><a href="/{{ article.index }}">{{ article.title }}</a></h2>
+            <p>{{ article.article }}</p>
+        </article>
+    {% endfor %}
 {% endblock %}
