@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>{% block title %}SNIMUS DEFAULT{% endblock %}</title>
+
+    <link rel='stylesheet' href='/css/normalize.css' />
+    <link rel='stylesheet' href='/css/sn-font.css' />
+    <link rel='stylesheet' href='/css/style.css' />
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/layout.js"></script>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <header id="sn-head">
+        <div class="sn-container sn-fullwidth">
+            <div class="sn-left">
+                <div class="sn-drpdwn sn-menu">
+                    <a class="sn-actuate sn-btn-i sn-menu" href="#menu">
+                        <i class="sn-i sn-i-menu"></i>
+                    </a>
+                    <div class="sn-container" style="display:none;">
+                        <header style="display:block;"><span></span></header>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="#">{{ user.name | default('no user') }}</a>
+                                </li>
+                                {% if user %}
+                                <li>
+                                    <a href="/auth/logout">{{ __('Log out')}}</a>
+                                </li>
+                                {% else %}
+                                <li>
+                                    <a href="/auth/login">{{ __('Log in')}}</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        <footer style="display:none;"><span></span></footer>
+                    </div>
+                    {% if isMobile %}
+                    <div class="sn-close"></div>
+                    {% endif %}
+                </div>
+            </div>
+            <a class="sn-btn-i sn-logo" href="/">
+                <i class="sn-i sn-i-logo"></i>
+            </a>
+        </div>
+    </header>
+    <section id="sn-body" class="sn-fullwidth">
+        {% block content %}
+        {% endblock %}
+    </section>
+</body>
+</html>

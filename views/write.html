@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block head %}
+<script src="/js/marked.js"></script>
+{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    <input type="hidden" name="_id" value="{{ _id }}">
+    <div class="sn-form">
+        {{ form | safe }}
+    </div>
+    <div><button type="submit">{{ __('SUBMIT TO DARKSEID') }}</button></div>
+</form>
+{% endblock %}

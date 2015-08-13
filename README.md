@@ -1,2 +1,2 @@
 # snimus
-A simple node.js blog ap
+A simple node.js blog app

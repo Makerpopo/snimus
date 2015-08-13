@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block head %}
+<script src="/js/jquery.timeago.js"></script>
+<script src="/js/locales/jquery.timeago.ko.js"></script>
+<script>
+    $(function() {
+        $('time.timeago').timeago();
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+    <section class="sn-article">
+        <header>
+            <h1>{{ post.title }}</h1>
+            <div class="sn-meta">
+                <p>
+                    <time class="timeago" datetime="{{ date.toISOString() }}">{{ date | date('Y/m/d H:i') }}</time>
+                </p>
+                <p>
+                    <input type="text" readonly value="{{ absurl }}">
+                </p>
+            </div>
+        </header>
+        <article>
+            {{ post.article | safe }}
+        </article>
+    </section>
+{% endblock %}

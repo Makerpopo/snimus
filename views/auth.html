@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block head %}
+<script src="/js/marked.js"></script>
+{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% if _id %}
+    <input type="hidden" name="_id" value="{{ _id }}">
+    {% endif %}
+    <div>
+        {% for field in form.fields %}
+            {% if field %}
+            <p>{{ field.widget.toHTML(field.name) | safe }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div><button type="submit">{{ __('SUBMIT TO DARKSEID') }}</button></div>
+</form>
+{% endblock %}
