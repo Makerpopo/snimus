@@ -74,6 +74,8 @@ body {
         padding: 0 15px;
         text-decoration: none;
         white-space: nowrap; }
+        .sn-drpdwn > .sn-container li a:hover {
+          color: #99a; }
 
 #sn-head {
   top: 0;
@@ -112,6 +114,36 @@ body {
       margin: 18px auto; }
       #sn-head .sn-btn-i.sn-logo .sn-i-logo::before {
         margin: -38px 0; }
+
+#sn-auth {
+  box-sizing: border-box;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 40px 20px; }
+  #sn-auth .sn-field {
+    box-shadow: 0 5px 15px #f5f5f5;
+    margin: 0; }
+    #sn-auth .sn-field input,
+    #sn-auth .sn-field button {
+      width: 100%;
+      border: 1px solid #eee;
+      border-bottom-width: 0;
+      box-sizing: border-box;
+      outline: none;
+      padding: 20px 1.5em; }
+    #sn-auth .sn-field:first-of-type, #sn-auth .sn-field:first-of-type input, #sn-auth .sn-field:first-of-type button {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px; }
+    #sn-auth .sn-field:last-of-type, #sn-auth .sn-field:last-of-type input, #sn-auth .sn-field:last-of-type button {
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border-bottom-width: 1px; }
+
+.sn-submit {
+  background: #c13;
+  color: #fff; }
+  .sn-submit:hover {
+    background: #b12; }
 
 .sn-article > header {
   text-align: center; }

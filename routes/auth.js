@@ -18,6 +18,12 @@ var widgets = forms.widgets;
 // GET signup form
 router.get('/signup', csrfProtection, function(req, res, next) {
     var signupform = forms.create({
+        name: fields.string({
+            required: true,
+            widget: widgets.text({
+                placeholder: res.__('Name')
+            })
+        }),
         email: fields.string({
             required: true,
             widget: widgets.email({
@@ -35,12 +41,6 @@ router.get('/signup', csrfProtection, function(req, res, next) {
             widget: widgets.password({
                 placeholder: res.__('Password Check'),
             })
-        }),
-        name: fields.string({
-            required: true,
-            widget: widgets.text({
-                placeholder: res.__('Name')
-            })
         })
     });
 
@@ -49,6 +49,8 @@ router.get('/signup', csrfProtection, function(req, res, next) {
     locals._id = crypto.randomBytes(20).toString('hex');
     locals.csrfToken = req.csrfToken();
     locals.form = signupform;
+    locals.mode = 'signup';
+    locals.submitText = res.__('Sign up');
     res.render('auth', locals);
 });
 
@@ -78,6 +80,8 @@ router.get('/login', csrfProtection, function(req, res, next) {
     var locals = require('../config/globals')(req);
     locals.csrfToken = req.csrfToken();
     locals.form = loginform;
+    locals.mode = 'login';
+    locals.submitText = res.__('Log in');
     res.render('auth', locals);
 });
 
