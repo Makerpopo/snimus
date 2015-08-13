@@ -1,3 +1,9 @@
-public/
-logs/
-views/
+# Logs
+logs
+*.log
+
+# Public files that do not need refreshing
+public
+
+# Locales
+locales
