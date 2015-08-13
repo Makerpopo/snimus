@@ -27,8 +27,8 @@ router.get('/', function(req, res, next) {
             var $ = cheerio.load('<body>' + marked(locals.articles[i].article) + '</body>');
             $('table, iframe, ul, ol').remove();
             var text = $('body').text();
-            if (text.length > 280) {
-                text = text.substring(0, 280) + '...';
+            if (text.length > 200) {
+                text = text.substring(0, 200) + '...';
             }
             locals.articles[i].article = text;
             locals.articles[i].image = $('img').first().attr('src');
