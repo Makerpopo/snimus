@@ -16,4 +16,8 @@ $(function() {
         e.preventDefault();
         $(this).next('.sn-container').toggle();
     });
+
+    $('.sn-drpdwn .sn-close').on('click', function(e) {
+        $(this).closest('.sn-container').hide();
+    });
 });
