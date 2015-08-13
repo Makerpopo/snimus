@@ -8,6 +8,11 @@
 
 {% block content %}
 <section id="sn-auth">
+    {% if mode == 'login' %}
+    <article>
+        <p>{{ __('Do you have an account? Log in here and start writing right now!') }}</p>
+    </article>
+    {% endif %}
     <form action="" method="post">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">
         {% if _id %}
@@ -22,5 +27,11 @@
             <button class="sn-submit sn-{{ mode }}" type="submit">{{ submitText }}</button>
         </p>
     </form>
+    {% if mode == 'login' %}
+    <article>
+        <p>{{ __("...Or if you don't but have things to write, you can contact us here:") }}</p>
+        <p class="sn-contact">contact [at] snim.us</p>
+    </article>
+    {% endif %}
 </section>
 {% endblock %}

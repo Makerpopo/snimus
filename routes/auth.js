@@ -51,6 +51,7 @@ router.get('/signup', csrfProtection, function(req, res, next) {
     locals.form = signupform;
     locals.mode = 'signup';
     locals.submitText = res.__('Sign up');
+    locals.title = res.__('Sign up');
     res.render('auth', locals);
 });
 
@@ -82,6 +83,7 @@ router.get('/login', csrfProtection, function(req, res, next) {
     locals.form = loginform;
     locals.mode = 'login';
     locals.submitText = res.__('Log in');
+    locals.title = res.__('Log in');
     res.render('auth', locals);
 });
 

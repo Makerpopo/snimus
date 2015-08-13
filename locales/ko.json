@@ -1,12 +1,13 @@
 {
-	"Thine title goeth hereth": "제목을 쓰라우",
-	"Write down thine words!": "내용도 쓰라우!",
-	"SUBMIT TO DARKSEID": "다크사이드에게 굴복하라!",
-	"Username": "Username",
-	"Password": "Password",
-	"E-Mail": "E-Mail",
-	"Name": "Name",
-	"Password Check": "Password Check",
+	"E-Mail": "이메일",
+	"Password": "비밀번호",
 	"Log in": "로그인",
-	"Log out": "로그아웃"
+	"Password Check": "비밀번호 확인",
+	"Name": "이름",
+	"Sign up": "회원가입",
+	"Write an article": "글쓰기",
+	"Log out": "로그아웃",
+	"SUBMIT TO DARKSEID": "SUBMIT TO DARKSEID",
+	"...Or if you don't but have things to write, you can contact us here:": "...계정이 없으시다면, 하지만 쓰고 싶은 글이 있으시다면 한번 저희한테 연락해보세요.",
+	"Do you have an account? Log in here and start writing right now!": "계정이 있으시다면 어서 로그인하시고 글을 써 보세요!"
 }
