@@ -30,7 +30,7 @@ require('./config/passport')(passport);
 // i18n setup
 i18n.configure({
     locales: ['en', 'ko'],
-    directory: path.join(__dirname, 'locales')
+    directory: __dirname + '/locales'
 });
 app.use(i18n.init);
 
