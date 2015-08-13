@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <title>{% block title %}SNIMUS DEFAULT{% endblock %}</title>
+    <title>{% block title %}{% endblock %} :: snim.us</title>
 
     <link rel='stylesheet' href='/css/normalize.css' />
     <link rel='stylesheet' href='/css/sn-font.css' />
@@ -27,10 +27,13 @@
                         <header style="display:block;"><span></span></header>
                         <nav>
                             <ul>
-                                <li>
-                                    <a href="#">{{ user.name | default('no user') }}</a>
-                                </li>
                                 {% if user %}
+                                <li>
+                                    <a href="#">{{ user.name }}</a>
+                                </li>
+                                <li>
+                                    <a href="/write">{{ __('Write an article')}}</a>
+                                </li>
                                 <li>
                                     <a href="/auth/logout">{{ __('Log out')}}</a>
                                 </li>
@@ -42,10 +45,8 @@
                             </ul>
                         </nav>
                         <footer style="display:none;"><span></span></footer>
+                        <div class="sn-close"></div>
                     </div>
-                    {% if isMobile %}
-                    <div class="sn-close"></div>
-                    {% endif %}
                 </div>
             </div>
             <a class="sn-btn-i sn-logo" href="/">
