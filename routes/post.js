@@ -160,7 +160,6 @@ router.get('/write', isLoggedIn, csrfProtection, function(req, res, next) {
 router.post('/write', isLoggedIn, csrfProtection, function(req, res) {
     writeform.handle(req, {
         success: function(form) {
-            console.log(form);
             co(function* () {
                 var db = yield MongoClient.connect(dbconfig.url);
                 var col = db.collection('entry');
