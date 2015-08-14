@@ -4,11 +4,11 @@
 
 @font-face {
   font-family: "sn-font";
-  src: url("../fonts/sn-font.eot");
-  src: url("../fonts/sn-font.eot?#iefix") format("embedded-opentype"),
-       url("../fonts/sn-font.woff") format("woff"),
-       url("../fonts/sn-font.ttf") format("truetype"),
-       url("../fonts/sn-font.svg#sn-font") format("svg");
+  src: url("./sn-font.eot");
+  src: url("./sn-font.eot?#iefix") format("embedded-opentype"),
+       url("./sn-font.woff") format("woff"),
+       url("./sn-font.ttf") format("truetype"),
+       url("./sn-font.svg#sn-font") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -16,15 +16,19 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: "sn-font";
-    src: url("../fonts/sn-font.svg#sn-font") format("svg");
+    src: url("./sn-font.svg#sn-font") format("svg");
   }
 }
 
 [data-icon]:before { content: attr(data-icon); }
 
 [data-icon]:before,
+.sn-i-add:before,
+.sn-i-down:before,
 .sn-i-logo:before,
-.sn-i-menu:before {
+.sn-i-menu:before,
+.sn-i-subtract:before,
+.sn-i-up:before {
   display: inline-block;
   font-family: "sn-font";
   font-style: normal;
@@ -39,5 +43,9 @@
   font-smoothing: antialiased;
 }
 
+.sn-i-add:before { content: "\f104"; }
+.sn-i-down:before { content: "\f102"; }
 .sn-i-logo:before { content: "\f100"; }
 .sn-i-menu:before { content: "\f101"; }
+.sn-i-subtract:before { content: "\f105"; }
+.sn-i-up:before { content: "\f103"; }
