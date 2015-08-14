@@ -32,7 +32,8 @@ var formIterate = function(name, object) {
         object.widget.classes = [];
     }
     var error = object.error ? '<div class="sn-form-field-err">' + object.error + '</div>' : '';
-    var widget = '<div class="sn-form-field">' + object.widget.toHTML(name, object) + '</div>';
+    var widget = '<div class="sn-form-field sn-' + name + '">' +
+        object.widget.toHTML(name, object) + '</div>';
     return widget + error;
 }
 
@@ -41,8 +42,14 @@ var writeform = forms.create({
     title: fields.string({
         required: true,
         widget: widgets.text({
-            placeholder: 'title goes here' // res.__('Thine title goeth hereth')
+            placeholder: 'title goes here', // res.__('Thine title goeth hereth')
+            classes: ['sn-title']
         })
+    }),
+    category: fields.string({
+        choices: {},
+        required: true,
+        widget: widgets.select({ classes: ['sn-select'] })
     }),
     article: fields.string({
         required: true,
@@ -62,15 +69,21 @@ router.get(/^\/([0-9]+)\/?$/, function(req, res, next) {
             index: req.params[0] * 1
         });
         test.ok(r);
+        var post = r;
+        var col = db.collection('category');
+        var r = yield col.findOne({
+            index: post.category * 1
+        });
+        test.ok(r);
+        var category = r;
         db.close();
 
-        var post = r;
         post.article = marked(post.article);
         var date = new Date(post.date);
 
         var locals = require('../config/globals')(req);
         locals.post = post;
-        locals.absurl = req.protocol + '://' + req.get('host') + req.url;
+        locals.post.categoryName = category.name;
         locals.date = date;
         res.render('post', locals);
     }).catch(function(err) {
@@ -148,11 +161,31 @@ router.post(/^\/([0-9]+)\/edit\/?$/, isLoggedIn, csrfProtection, function(req, r
 
 // GET write form
 router.get('/write', isLoggedIn, csrfProtection, function(req, res, next) {
-    res.render('write', {
-        user: req.user,
-        _id: crypto.randomBytes(20).toString('hex'),
-        csrfToken: req.csrfToken(),
-        form: writeform.toHTML(formIterate)
+    co(function* () {
+        var db = yield MongoClient.connect(dbconfig.url);
+        var col = db.collection('category');
+        var r = yield col.find({}).toArray();
+
+        writeform.fields.category.choices = {};
+
+        for (i = 0; i < r.length; i++) {
+            writeform.fields.category.choices[r[i].index] = r[i].name;
+        }
+
+        writeform.fields.category.choices.add = res.__('More...');
+
+        var locals = require('../config/globals')(req);
+        locals._id = crypto.randomBytes(20).toString('hex');
+        locals.csrfToken = req.csrfToken();
+        locals.form = writeform.toHTML(formIterate);
+        res.render('write', locals);
+    }).catch(function(err) {
+        console.error(err.stack);
+        switch (err.code) {
+            default:
+                res.setHeader('Content-Type', 'text/plain');
+                res.end('some kind of error');
+        }
     });
 });
 
@@ -166,7 +199,7 @@ router.post('/write', isLoggedIn, csrfProtection, function(req, res) {
 
                 var entry = form.data;
                 delete entry._csrf;
-                entry.index = (yield col.count({})) + 1;
+                entry.index = (yield col.findOne({}, {sort: {_id: -1}})).index + 1;
                 entry.date = Date.now();
 
                 var r = yield col.insertOne(entry);

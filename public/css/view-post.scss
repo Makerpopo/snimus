@@ -2,27 +2,43 @@
 // view-post.scss: post view specific styles
 
 .sn-article {
-    & > header {
+
+    div.sn-title {
+        font-family: '나눔바른고딕', sans-serif;
+        font-size: 50px;
+        font-weight: 100;
+        line-height: 60px;
+        margin: 40px 0;
+        padding: 0;
         text-align: center;
 
-        h1 {
-            font-family: '나눔바른고딕', sans-serif;
-            font-size: 50px;
-            font-weight: 100;
-            margin: 0;
+        input {
+            width: 100%;
+            border: 0;
+            outline: none;
+            text-align: center;
         }
 
+        h1 {
+            font-size: inherit;
+            font-weight: inherit;
+        }
+    }
+
+    & > header {
+
         .sn-meta {
-            margin: 10px 0;
+            font-size: 0;
+            margin: 20px 0;
+            text-align: center;
 
-            p {
+            .sn-meta-box {
+                font-size: 16px;
                 margin: 0;
-            }
 
-            input {
-                width: 100%;
-                border: 0;
-                text-align: center;
+                & + .sn-meta-box {
+                    border-left: 1px solid #fff;
+                }
             }
         }
     }
@@ -31,10 +47,11 @@
 
 #sn-body {
     .sn-article {
-        padding-top:80px;
-
-        p {
-            margin: 1em;
+        padding: 40px 0 0;
+        article {
+            p {
+                margin: 1em;
+            }
         }
     }
 }

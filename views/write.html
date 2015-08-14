@@ -7,12 +7,14 @@
 {% endblock %}
 
 {% block content %}
-<form action="" method="post">
-    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-    <input type="hidden" name="_id" value="{{ _id }}">
-    <div class="sn-form">
-        {{ form | safe }}
-    </div>
-    <div><button type="submit">{{ __('SUBMIT TO DARKSEID') }}</button></div>
-</form>
+<section class="sn-article">
+    <form action="" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        <input type="hidden" name="_id" value="{{ _id }}">
+        <div class="sn-form">
+            {{ form | safe }}
+        </div>
+        <div><button type="submit">{{ __('SUBMIT TO DARKSEID') }}</button></div>
+    </form>
+</section>
 {% endblock %}

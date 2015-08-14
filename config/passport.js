@@ -48,7 +48,7 @@ module.exports = function(passport) {
                     return done(null, false, { message: 'Email already taken' });
                 } else {
                     var newUser = {
-                        index: (yield col.count({})) + 1,
+                        index: (yield col.findOne({}, {sort: {_id: -1}})).index + 1,
                         email: email,
                         password: bcrypt.hashSync(password, bcrypt.genSaltSync(8), null),
                         name: req.body.name

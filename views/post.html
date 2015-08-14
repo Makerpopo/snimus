@@ -1,7 +1,5 @@
 {% extends 'layout.html' %}
 
-{% block title %}{{ title }}{% endblock %}
-
 {% block head %}
 <script src="/js/jquery.timeago.js"></script>
 <script src="/js/locales/jquery.timeago.ko.js"></script>
@@ -15,13 +13,15 @@
 {% block content %}
     <section class="sn-article">
         <header>
-            <h1>{{ post.title }}</h1>
+            <div class="sn-title">
+                <h1>{{ post.title }}</h1>
+            </div>
             <div class="sn-meta">
-                <p>
-                    <time class="timeago" datetime="{{ date.toISOString() }}">{{ date | date('Y/m/d H:i') }}</time>
-                </p>
-                <p>
-                    <input type="text" readonly value="{{ absurl }}">
+                <a href="/c/{{ post.category }}" class="sn-meta-box">
+                    <span class="sn-text">{{ post.categoryName }}</span>
+                </a>
+                <p class="sn-meta-box">
+                    <time class="timeago sn-text" datetime="{{ date.toISOString() }}">{{ date | date('Y/m/d H:i') }}</time>
                 </p>
             </div>
         </header>

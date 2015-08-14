@@ -57,3 +57,26 @@ body {
         background: #b12;
     }
 }
+
+// meta boxes
+.sn-meta-box {
+    background: #c13;
+    color: #fff;
+    display: inline-block;
+    line-height: 35px;
+    text-decoration: none;
+
+    .sn-text {
+        display: inline-block;
+        padding:0 1em;
+    }
+
+    .sn-i {
+        height: 35px;
+        width: 35px;
+        border-left: 1px solid #fff;
+        font-size:10px;
+        text-align: center;
+        vertical-align: top;
+    }
+}
