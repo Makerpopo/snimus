@@ -1,0 +1,47 @@
+@charset "UTF-8";
+// view-auth.scss: auth view specific styles
+
+#sn-auth {
+    box-sizing: border-box;
+    max-width: 520px;
+    margin: 40px auto;
+    padding: 0 20px;
+
+    form {
+        margin: 30px 0;
+    }
+
+    article {
+        padding: 0 1em;
+    }
+
+    .sn-field {
+        box-shadow: 0 5px 15px #f5f5f5;
+        margin: 0;
+
+        input,
+        button {
+            width: 100%;
+            border: 1px solid #eee;
+            border-bottom-width: 0;
+            box-sizing: border-box;
+            outline: none;
+            padding: 20px 1.5em;
+        }
+
+        &:first-of-type,
+        &:first-of-type input,
+        &:first-of-type button {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        &:last-of-type,
+        &:last-of-type input,
+        &:last-of-type button {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-bottom-width: 1px;
+        }
+    }
+}

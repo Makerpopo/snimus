@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+// text selection
+::selection {
+    background: #c13;
+    color: #fff;
+    text-shadow:none;
+}
+
+// IE10+ input clear buttons
+// ::-ms-clear,
+// ::-ms-reveal { display:none; }
+
+// de body
+body {
+    background: #fff;
+    color: #222;
+    font: 16px "NanumGothic", "Malgun Gothic", sans-serif;
+    letter-spacing: -.04em;
+    line-height: 1.6;
+}
+
+// left and right float
+.sn-left {
+    width: 0;
+    float: left;
+}
+
+.sn-right {
+    width: 0;
+    float: right;
+}
+
+// snimicons layout
+.sn-i {
+    display: inline-block;
+}
+
+.sn-btn-i {
+    display: inline-block;
+    overflow: hidden;
+    transition: color .2s;
+}
+
+// contact information
+.sn-contact {
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+}
+
+// submit buttons
+.sn-submit {
+    background: #c13;
+    color: #fff;
+    &:hover {
+        background: #b12;
+    }
+}

@@ -1,0 +1,40 @@
+@charset "UTF-8";
+// view-post.scss: post view specific styles
+
+.sn-article {
+    & > header {
+        text-align: center;
+
+        h1 {
+            font-family: '나눔바른고딕', sans-serif;
+            font-size: 50px;
+            font-weight: 100;
+            margin: 0;
+        }
+
+        .sn-meta {
+            margin: 10px 0;
+
+            p {
+                margin: 0;
+            }
+
+            input {
+                width: 100%;
+                border: 0;
+                text-align: center;
+            }
+        }
+    }
+}
+
+
+#sn-body {
+    .sn-article {
+        padding-top:80px;
+
+        p {
+            margin: 1em;
+        }
+    }
+}

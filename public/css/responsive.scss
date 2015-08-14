@@ -1,0 +1,12 @@
+@charset "UTF-8";
+// responsive.scss: responsive design specific styles
+
+.sn-fullwidth {
+    width: 880px;
+}
+
+@media screen and (max-width: 880px) {
+    .sn-fullwidth {
+        width: 100%;
+    }
+}

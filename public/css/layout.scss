@@ -1,0 +1,66 @@
+@charset "UTF-8";
+// layout.scss: layout specific styles
+
+#sn-head {
+    top: 0;
+    left: 0;
+    height: 60px;
+    width: 100%;
+    background: #c13;
+    box-shadow: none;
+    line-height: 0;
+    position: fixed;
+    text-align: center;
+    transition: background-color .2s, box-shadow .2s;
+    z-index: 100;
+
+    & > .sn-container {
+        height: inherit;
+        margin: 0 auto;
+    }
+
+    .sn-btn-i {
+        height: inherit;
+        color: #fff;
+    }
+
+    &.sn-header-w {
+        background: rgba(255, 255, 255, .9);
+        box-shadow: 0 0 10px 5px rgba(0, 0, 0, .05);
+
+        .sn-btn-i {
+            color: #222;
+        }
+    }
+
+    .sn-btn-i.sn-menu .sn-i-menu {
+        height: 30px;
+        width: 30px;
+        line-height:30px;
+        margin:15px;
+    }
+
+    .sn-drpdwn.sn-menu header {
+        width: 60px;
+    }
+
+    .sn-btn-i.sn-logo {
+        padding: 0 10px;
+
+        .sn-i-logo {
+            height: 24px;
+            font-size:100px;
+            margin:18px auto;
+
+            &::before {
+                margin: -38px 0;
+            }
+        }
+    }
+}
+
+
+#sn-body {
+    margin: 0 auto;
+    padding-top: 60px;
+}

@@ -4,10 +4,6 @@
   color: #fff;
   text-shadow: none; }
 
-::-ms-clear,
-::-ms-reveal {
-  display: none; }
-
 body {
   background: #fff;
   color: #222;
@@ -18,6 +14,10 @@ body {
 .sn-left {
   width: 0;
   float: left; }
+
+.sn-right {
+  width: 0;
+  float: right; }
 
 .sn-i {
   display: inline-block; }
@@ -32,11 +32,18 @@ body {
   font-size: 14px;
   text-align: center; }
 
+.sn-submit {
+  background: #c13;
+  color: #fff; }
+  .sn-submit:hover {
+    background: #b12; }
+
 .sn-drpdwn {
   position: relative; }
   .sn-drpdwn > .sn-container {
     text-align: left;
-    position: absolute; }
+    position: absolute;
+    z-index: 10; }
     .sn-drpdwn > .sn-container .sn-close {
       top: 0;
       left: 0;
@@ -129,6 +136,10 @@ body {
       #sn-head .sn-btn-i.sn-logo .sn-i-logo::before {
         margin: -38px 0; }
 
+#sn-body {
+  margin: 0 auto;
+  padding-top: 60px; }
+
 #sn-auth {
   box-sizing: border-box;
   max-width: 520px;
@@ -157,12 +168,6 @@ body {
       border-bottom-right-radius: 10px;
       border-bottom-width: 1px; }
 
-.sn-submit {
-  background: #c13;
-  color: #fff; }
-  .sn-submit:hover {
-    background: #b12; }
-
 .sn-article > header {
   text-align: center; }
   .sn-article > header h1 {
@@ -179,13 +184,10 @@ body {
       border: 0;
       text-align: center; }
 
-#sn-body {
-  margin: 0 auto;
-  padding-top: 60px; }
-  #sn-body .sn-article {
-    padding-top: 80px; }
-    #sn-body .sn-article p {
-      margin: 1em; }
+#sn-body .sn-article {
+  padding-top: 80px; }
+  #sn-body .sn-article p {
+    margin: 1em; }
 
 .sn-fullwidth {
   width: 880px; }
