@@ -22,6 +22,7 @@ var flash = require('connect-flash');
 var routes = require('./routes/index');
 var post = require('./routes/post');
 var auth = require('./routes/auth');
+var category = require('./routes/category');
 
 // configs =================================================
 
@@ -62,6 +63,7 @@ app.use(flash());
 app.use('/', routes);
 app.use('/', post);
 app.use('/auth', auth);
+app.use('/c', category);
 
 // error handlers ==========================================
 
