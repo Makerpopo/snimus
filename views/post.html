@@ -17,11 +17,12 @@
                 <h1>{{ post.title }}</h1>
             </div>
             <div class="sn-meta">
-                <a href="/c/{{ post.category }}" class="sn-meta-box">
-                    <span class="sn-text">{{ post.categoryName }}</span>
+                <a href="/c/{{ post.category.index }}" class="sn-meta-box">
+                    <span class="sn-text">{{ post.category.name }}</span>
                 </a>
-                <p class="sn-meta-box">
-                    <time class="timeago sn-text" datetime="{{ date.toISOString() }}">{{ date | date('Y/m/d H:i') }}</time>
+                <p>
+                    <time class="timeago" datetime="{{ date.toISOString() }}">{{ date | date('Y/m/d H:i') }}</time>,
+                    <a href="/u/{{ post.author.index }}">{{ post.author.name }}</a>
                 </p>
             </div>
         </header>
