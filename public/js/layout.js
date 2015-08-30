@@ -13,6 +13,9 @@ $(function() {
     $(document)
         // change header theme according to the scroll
         .on('scroll', scrollTopEdge)
+        .on('keydown', 'textarea#id_title', function(e) {
+            if (e.which == 13) e.preventDefault();
+        })
         // toggle the dropdown menu
         .on('click', '.sn-drpdwn .sn-actuate', function(e) {
             e.preventDefault();
@@ -45,6 +48,15 @@ $(function() {
                 });
             }
 
+            if (container.hasClass('sn-center')) {
+                container
+                    .css('left', container.closest('.sn-drpdwn').width()/2 -
+                    container.width()/2);
+
+                container.find('header, footer')
+                    .css('width', '100%');
+            }
+
             if (container.find('li').length > 5) {
                 container.find('nav')
                     .height('260px')
@@ -67,12 +79,15 @@ $(function() {
         // change the real select value with the custom dropdown select
         .on('click', '.sn-drpdwn.sn-select a.sn-option', function(e) {
             e.preventDefault();
+            var container = $(this).closest('.sn-container');
             var dropdown = $(this).closest('.sn-drpdwn');
             var value = $(this).data('value');
             if (value != 'add') {
                 dropdown.prev('select').find('option')
                     .filter('[value='+$(this).data('value')+']')
                         .prop('selected', true).trigger('change');
+
+                dropdown.prev('select').trigger('change');
 
                 dropdown.find('.sn-actuate .sn-text').text($(this).text());
                 dropdown.find('.sn-close').trigger('click');
@@ -83,9 +98,26 @@ $(function() {
                     .after(input)
                     .hide();
                 input.find('input').focus();
+
+                if (container.hasClass('sn-center')) {
+                    container
+                        .css('left', container.closest('.sn-drpdwn').width()/2 -
+                        container.width()/2);
+                }
             }
         })
         // dynamically add on dropdown selection
+        .on('blur', '.sn-drpdwn.sn-select input.sn-select-add', function(e) {
+            var container = $(this).closest('.sn-container');
+            var p = $(this).closest('p');
+            p.prev('.sn-option').show();
+            p.remove();
+            if (container.hasClass('sn-center')) {
+                container
+                    .css('left', container.closest('.sn-drpdwn').width()/2 -
+                    container.width()/2);
+            }
+        })
         .on('keypress', '.sn-drpdwn.sn-select input.sn-select-add', function(e) {
             if (e.which == 13) {
                 e.preventDefault();
@@ -95,8 +127,12 @@ $(function() {
                     url: '/c/add',
                     data: { name: $(this).val() }
                 })
+                    .fail(function(jqxhr, status, err) {
+                        if (jqxhr.status == 401) alert('권한이 없습니다.');
+                    })
                     .done(function(res) {
                         var ops = JSON.parse(res)[0];
+                        var container = that.closest('.sn-container');
                         var option = that.closest('p').prev('.sn-option').show();
                         var select = that.closest('.sn_select').prev('select');
 
@@ -107,7 +143,13 @@ $(function() {
                             .before('<li><a class="sn-option" href="#" data-value="' +
                                 ops.index + '">' + ops.name + '</a></li>');
 
-                        that.closest('p').remove();
+                        that.blur();
+
+                        if (container.hasClass('sn-center')) {
+                            container
+                                .css('left', container.closest('.sn-drpdwn').width()/2 -
+                                container.width()/2);
+                        }
                     });
             }
         });
@@ -131,6 +173,10 @@ $(function() {
                 $(this).find('option').first().text() +
                 '</span>' +
                 '<i class="sn-i sn-i-down"></i>');
+
+            if ($(this).hasClass('sn-center')) {
+                dropdown.find('.sn-container').addClass('sn-center');
+            }
 
             option.each(function() {
                 var text = $(this).text();
