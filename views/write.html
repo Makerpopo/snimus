@@ -8,13 +8,19 @@
 
 {% block content %}
 <section class="sn-article">
-    <form action="" method="post">
+    <form id="sn-writeform" action="" method="post">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">
         <input type="hidden" name="_id" value="{{ _id }}">
         <div class="sn-form">
             {{ form | safe }}
+            <script>
+                autosize($('#id_title, #id_article'));
+                $('#sn-writeform').garlic();
+            </script>
+            <div class="sn-form-field" style="text-align:center;">
+                <button class="sn-submit" type="submit">{{ submitText }}</button>
+            </div>
         </div>
-        <div><button type="submit">{{ __('SUBMIT TO DARKSEID') }}</button></div>
     </form>
 </section>
 {% endblock %}
