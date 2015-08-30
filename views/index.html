@@ -1,12 +1,40 @@
 {% extends 'layout.html' %}
 
+{% block head %}
+<script src="/js/jquery.timeago.js"></script>
+<script src="/js/locales/jquery.timeago.ko.js"></script>
+<script>
+    $(function() {
+        $('time.timeago').timeago();
+    });
+</script>
+{% endblock %}
+
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
     {% for article in articles %}
-        <article>
-            <h2><a href="/{{ article.index }}">{{ article.title }}</a></h2>
-            <p>{{ article.article }}</p>
+        <article class="sn-article sn-article-summary">
+            {% if article.image %}
+                <img src="{{ article.image }}">
+            {% endif %}
+            <header>
+                <div class="sn-title">
+                    <h1><a href="/{{ article.index }}">{{ article.title }}</a></h1>
+                </div>
+                <div class="sn-meta">
+                    <a href="/c/{{ article.category.index }}" class="sn-meta-box">
+                        <span class="sn-text">{{ article.category.name }}</span>
+                    </a>
+                    <p>
+                        <time class="timeago" datetime="{{ article.dateISO }}">{{ article.date | date('Y/m/d H:i') }}</time>,
+                        <a href="/u/{{ article.author.index }}">{{ article.author.name }}</a>
+                    </p>
+                </div>
+            </header>
+            <article>
+                <p>{{ article.article }}</p>
+            </article>
         </article>
     {% endfor %}
 {% endblock %}
