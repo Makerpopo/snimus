@@ -20,9 +20,8 @@ router.get('/', function(req, res, next) {
         var col = db.collection('entry');
         var r = yield col.find({}, {sort:{index:-1}, skip:0, limit:10}).toArray();
         test.ok(r);
-        db.close();
-
         locals.articles = r;
+
         for (var i = 0; i < locals.articles.length; i++) {
             var $ = cheerio.load('<body>' + marked(locals.articles[i].article) + '</body>');
             $('table, iframe, ul, ol').remove();
@@ -32,7 +31,24 @@ router.get('/', function(req, res, next) {
             }
             locals.articles[i].article = text;
             locals.articles[i].image = $('img').first().attr('src');
+            locals.articles[i].dateISO = new Date(locals.articles[i].date);
+            locals.articles[i].dateISO = locals.articles[i].dateISO.toISOString();
+
+            var user = db.collection('user');
+            var category = db.collection('category');
+            var r = yield [
+                user.findOne({index:locals.articles[i].author}),
+                category.findOne({index:locals.articles[i].category})
+            ];
+            test.ok(r);
+            locals.articles[i].author = {};
+            locals.articles[i].author.index = r[0].index;
+            locals.articles[i].author.name = r[0].name;
+            locals.articles[i].category = r[1];
         }
+
+        db.close();
+
         res.render('index', locals);
     }).catch(function(err) {
         console.error(err.stack);

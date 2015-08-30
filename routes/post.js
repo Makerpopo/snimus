@@ -24,6 +24,7 @@ var widgets = forms.widgets;
 // so you can check if the request is authenticated
 var isLoggedIn = function(req, res, next) {
     if (req.isAuthenticated()) return next();
+    req.session.returnTo = req.path;
     res.redirect('/auth/login');
 }
 
@@ -41,21 +42,22 @@ var formIterate = function(name, object) {
 var writeform = forms.create({
     title: fields.string({
         required: true,
-        widget: widgets.text({
+        widget: widgets.textarea({
             placeholder: 'title goes here', // res.__('Thine title goeth hereth')
+            rows: 1,
             classes: ['sn-title']
         })
     }),
     category: fields.string({
         choices: {},
         required: true,
-        widget: widgets.select({ classes: ['sn-select'] })
+        widget: widgets.select({ classes: ['sn-select', 'sn-center'] })
     }),
     article: fields.string({
         required: true,
         widget: widgets.textarea({
             placeholder: 'text goes here', // res.__('Write down thine words!'),
-            rows: 60
+            rows: 10
         })
     })
 });
@@ -70,12 +72,17 @@ router.get(/^\/([0-9]+)\/?$/, function(req, res, next) {
         });
         test.ok(r);
         var post = r;
-        var col = db.collection('category');
-        var r = yield col.findOne({
-            index: post.category * 1
-        });
+
+        var categories = db.collection('category');
+        var users = db.collection('user');
+        var r = yield [
+            categories.findOne({ index: post.category * 1 }),
+            users.findOne({ index: post.author * 1 })
+        ]
         test.ok(r);
-        var category = r;
+        var category = r[0];
+        var author = r[1];
+
         db.close();
 
         post.article = marked(post.article);
@@ -83,7 +90,8 @@ router.get(/^\/([0-9]+)\/?$/, function(req, res, next) {
 
         var locals = require('../config/globals')(req);
         locals.post = post;
-        locals.post.categoryName = category.name;
+        locals.post.category = category;
+        locals.post.author = author;
         locals.date = date;
         res.render('post', locals);
     }).catch(function(err) {
@@ -109,6 +117,7 @@ router.get(/^\/([0-9]+)\/edit\/?$/, isLoggedIn, csrfProtection, function(req, re
         var locals = require('../config/globals')(req);
         locals.csrfToken = req.csrfToken();
         locals.form = writeform.bind(r).toHTML(formIterate);
+        locals.submitText = res.__('Edit this article');
         res.render('write', locals);
     }).catch(function(err) {
         console.error(err.stack);
@@ -127,9 +136,14 @@ router.post(/^\/([0-9]+)\/edit\/?$/, isLoggedIn, csrfProtection, function(req, r
                 var db = yield MongoClient.connect(dbconfig.url);
                 var col = db.collection('entry');
 
+                console.log(form.data);
+
                 var r = yield col.updateOne({ index: req.params[0] * 1 }, {
-                    $set: { title: form.data.title },
-                    $set: { article: form.data.article}
+                    $set: {
+                        title: form.data.title,
+                        category: form.data.category * 1,
+                        article: form.data.article
+                    }
                 })
                 db.close();
 
@@ -178,6 +192,7 @@ router.get('/write', isLoggedIn, csrfProtection, function(req, res, next) {
         locals._id = crypto.randomBytes(20).toString('hex');
         locals.csrfToken = req.csrfToken();
         locals.form = writeform.toHTML(formIterate);
+        locals.submitText = res.__('Post!');
         res.render('write', locals);
     }).catch(function(err) {
         console.error(err.stack);
@@ -198,9 +213,11 @@ router.post('/write', isLoggedIn, csrfProtection, function(req, res) {
                 var col = db.collection('entry');
 
                 var entry = form.data;
+                entry.category = entry.category * 1; // make it int
                 delete entry._csrf;
-                entry.index = (yield col.findOne({}, {sort: {_id: -1}})).index + 1;
+                entry.index = (((yield col.findOne({}, {sort: {_id: -1}})) || { index: 0 }).index + 1;
                 entry.date = Date.now();
+                entry.author = req.user.index;
 
                 var r = yield col.insertOne(entry);
                 db.close();

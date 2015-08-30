@@ -7,15 +7,20 @@ var MongoClient = require('mongodb').MongoClient;
 var test = require('assert');
 var dbconfig = require('../config/mongodb');
 
+// so you can check if the request is authenticated
+var isLoggedIn = function(req, res, next) {
+    if (req.isAuthenticated()) return next();
+    res.status(401).end();
+}
 
 // POST the post that came through
-router.post('/add', function(req, res) {
+router.post('/add', isLoggedIn, function(req, res) {
     co(function* () {
         var db = yield MongoClient.connect(dbconfig.url);
         var col = db.collection('category');
         var entry = {};
         entry.name = req.body.name;
-        entry.index = (yield col.findOne({}, {sort: {_id: -1}})).index + 1;
+        entry.index = ((yield col.findOne({}, {sort: {_id: -1}})) || { index: 0 }).index + 1;
 
         var r = yield col.insertOne(entry);
         db.close();
