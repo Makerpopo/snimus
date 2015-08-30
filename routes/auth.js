@@ -88,10 +88,17 @@ router.get('/login', csrfProtection, function(req, res, next) {
 });
 
 // POST after login
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/write',
-    failureRedirect: '/auth/login'
-}));
+router.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) return next(err);
+        if (!user) return res.redirect('/auth/login');
+
+        req.logIn(user, function(err) {
+            if(err) return next(err);
+        });
+        res.redirect(req.session.returnTo || '/');
+    })(req, res, next);
+});
 
 router.get('/logout', function(req, res) {
     req.logout();
