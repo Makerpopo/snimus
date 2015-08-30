@@ -3,6 +3,20 @@
 
 .sn-article {
 
+    .sn-form {
+        div.sn-title {
+            margin: 80px 0 40px;
+        }
+
+        div.sn-category {
+            margin: 40px 0 80px;
+        }
+
+        .sn-drpdwn.sn-select {
+            text-align: center;
+        }
+    }
+
     div.sn-title {
         font-family: '나눔바른고딕', sans-serif;
         font-size: 50px;
@@ -11,11 +25,13 @@
         margin: 40px 0;
         padding: 0;
         text-align: center;
+        word-wrap: break-word;
 
-        input {
+        textarea {
             width: 100%;
             border: 0;
             outline: none;
+            resize: none;
             text-align: center;
         }
 
@@ -26,32 +42,48 @@
     }
 
     & > header {
+        margin: 80px 0;
 
         .sn-meta {
-            font-size: 0;
-            margin: 20px 0;
             text-align: center;
 
-            .sn-meta-box {
-                font-size: 16px;
-                margin: 0;
-
-                & + .sn-meta-box {
-                    border-left: 1px solid #fff;
-                }
+            p {
+                display: inline-block;
+                margin: 0 .5em;
             }
         }
     }
-}
 
+    #id_article {
+        width: 640px;
+        max-width: 640px;
+        min-width: 640px;
+        border: 0;
+        box-sizing: border-box;
+        display: block;
+        outline: none;
+        padding: 1em;
+    }
 
-#sn-body {
-    .sn-article {
-        padding: 40px 0 0;
-        article {
-            p {
-                margin: 1em;
-            }
+    #id_article,
+    & > article {
+        max-width: 640px;
+        margin: 0 auto;
+
+        p {
+            margin: 1em;
         }
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+
+    .sn-submit {
+        box-sizing: border-box;
+        border: 0;
+        outline: none;
+        padding: 20px 60px;
     }
 }

@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.sn-article.sn-article-summary {
+    margin: 60px 0;
+
+    div.sn-title {
+        font-size: 30px;
+        text-align: left;
+        margin: 0;
+
+        h1 {
+            margin: 0;
+        }
+    }
+
+    & > header {
+        margin: 0;
+
+        .sn-meta {
+            text-align: left;
+        }
+    }
+
+    & > article {
+        max-width: none;
+        margin: 0 auto;
+
+        p {
+            margin: 1em 0;
+        }
+    }
+}
